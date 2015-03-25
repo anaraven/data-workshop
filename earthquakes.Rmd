@@ -1,0 +1,72 @@
+---
+title: "Earthquakes"
+author: "Andrés Aravena"
+date: "25 March 2015"
+output:
+  html_document:
+    self_contained: no
+---
+
+The data comes from the [Centennial Earthquake Catalog](http://earthquake.usgs.gov/data/centennial/) (Engdahl and Villaseñor, 2002) which is a global catalog of locations and magnitudes of instrumentally recorded earthquakes from 1900 to 2008. 
+
+They include nice pictures such as
+
+[](~/Desktop/data-workshop/centennial_plate15.pdf)
+
+The main table is in the file `"centennial_Y2K.CAT.txt"`.
+If we read it using `read.table()`, something weird happens.
+
+```{r fake-read, error=TRUE}
+cen <- read.table("~/Desktop/data-workshop/centennial_Y2K.CAT.txt")
+```
+
+so whitespace is not the good separator. Let's try with *Tab*.
+
+```{r fake-read-2}
+cen <- read.table("~/Desktop/data-workshop/centennial_Y2K.CAT.txt", sep="\t")
+```
+
+This time it works. The resulting `data.frame` has `r nrow(cen)` rows and `r ncol(cen)` columns. That does not sound good. Let's take a look at the first lines
+
+```{r head, results='markup'}
+head(cen)
+```
+So, all the line, including whitespace, is in a single column! Maybe is a good time to take a look at the documentation in `"centennial_README.rtf"`. It says
+
+```
+CAT FILE FORMAT
+
+Fortran read statement:
+
+       integer yr,day,hr,greg
+       read(1,100) icat,asol,isol,yr,mon,day,hr,min,sec,
+     1 glat,glon,dep,greg,ntel,(mag(k),msc(k),mdo(k),k=1,12)
+  100  format(a6,a1,a5,i4,2i3,1x,2i3,f6.2,1x,2f8.3,f6.1,2i4,
+     1 12(f4.1,1x,a2,1x,a5))
+```
+
+Ok. *Fortran* was a language that my dad used in his university days. But is still used in many cientific calculations because:
+
++ there are many old programs written on fortran that scientist still use
++ many new programs are adaptations of the old ones
++ it is *very* efficient for these tasks
++ it works
+
+The *read statement* should be unerstood as:
+
++ The variables `yr, day, hr` and `greg` are *integers*.
++ The column names are `icat, asol, isol, yr, mon, day, hr, min, sec,`
+`glat, glon, dep, greg, ntel, mag(1), msc(1), mdo(1), mag(2), msc(2), mdo(2),`
+`mag(3), msc(3), mdo(3), mag(4), msc(4), mdo(4), mag(5), msc(5), mdo(5),`
+`mag(6), msc(6), mdo(6), mag(7), msc(7), mdo(7), mag(8), msc(8), mdo(8),`
+`mag(9), msc(9), mdo(9), mag(10), msc(10), mdo(10), mag(11), msc(11), mdo(11),`
+`mag(12), msc(12), mdo(12)`. Notice the clever notation of the last 36 columns.
++ The *format* of the columns is `a6, a1, a5, i4, 2i3, 1x, 2i3, f6.2, 1x, 2f8.3, f6.1, 2i4, 12(f4.1, 1x, a2, 1x, a5)`. This is a little cryptic but we will not care too much.
+
+How do we read *Fortran* data in R? Google says that we can use the function `read.fortran`. We are lucky! In fact it is not so unexpected since people uses Fortran and R for data analysis. Some of the internal functions of R are indeed programmed in Fortran.
+
+```
+fmt <- c("A6", "A1", "A5", "I4", "2I3", "1X", "2I3", "F6.0", "1X", 
+         "2F8.0", "F6.0", "2I4",
+         rep(c("F4.0", "1X", "A2", "1X", "A5"),12))
+```
