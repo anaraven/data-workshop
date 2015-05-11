@@ -65,8 +65,9 @@ The *read statement* should be unerstood as:
 
 How do we read *Fortran* data in R? Google says that we can use the function `read.fortran`. We are lucky! In fact it is not so unexpected since people uses Fortran and R for data analysis. Some of the internal functions of R are indeed programmed in Fortran.
 
-```
+```{r fmt}
 fmt <- c("A6", "A1", "A5", "I4", "2I3", "1X", "2I3", "F6.0", "1X", 
          "2F8.0", "F6.0", "2I4",
          rep(c("F4.0", "1X", "A2", "1X", "A5"),12))
 ```
+

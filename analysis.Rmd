@@ -1,0 +1,185 @@
+---
+title: "Microarray Analysis"
+author: "Andrés Aravena"
+date: "5 May 2015"
+output:
+  ioslides_presentation:
+    keep_md: yes
+    logo: ~/Src/blog/assets/IU_Logo_128.png
+    self_contained: no
+    smart: no
+---
+
+## Input data
+We will use a modified version of the file that **Walid Khalilia** provided.
+
+We read the data frame with this command
+```{r read.csv, cache=TRUE}
+m <- read.csv("microarray.csv") 
+```
+The resulting data frame has `r nrow(m)` rows and `r ncol(m)` columns.
+
+## Column names
+```{r colnames}
+colnames(m)
+```
+
+## Conditions to contrast
+We have four conditions
+```{r matrix, echo=FALSE, results='asis'}
+mat <- sapply(strsplit(grep('AVG_Signal$', colnames(m), value = TRUE),".", fixed=TRUE), `[`, 1)
+mat <- matrix(mat, 2, 2, dimnames=list(c(1,2),c("Treat", "Control")))
+knitr::kable(as.data.frame(mat))
+```
+
+## Detecting change
+If 
+
++ the signal intensity of treatment is $T$
++ the signal intensity of control $C$
+
+Then the natural way to compare two conditions is to evaluate the difference $D$ as:
+$$D=T-C$$
+
+which in R is done like this
+```{r difference}
+d1 <- m$T1.AVG_Signal   - m$T1.AVG_Signal
+```
+
+## Percentual change
+But this difference value depends too much of the scale.
+When $D=100$ it may be for example
+
++ $T_1=50000$, $C_1=49900$
++ $T_2=200$, $C_2=100$
+
+If we consider the percentage of change, we have
+```{r pct}
+T.1 <- 50000; C.1 <- 49900; (T.1-C.1)/C.1*100
+T.2 <- 200; C.2 <- 100; (T.2-C.2)/C.2*100
+```
+
+## Fold Change
+In the first case the change is only `r round(10000/C.1,1)`%.  
+In the second case it is `r round(10000/C.2,1)`%.
+
+So the difference is not a good way to compare two signals.
+
+It is better to consider a ratio, the *fold change*
+$$FC = \frac{T}{C}$$
+
++ if $T$ is twice of $C$, then $FC=2$
++ if $T$ is half of $C$, then $FC=0.5$
++ if $T$ is the same as $C$, then $FC=1$
+
+## Fold Change is Asymetrical
+```{r plot.fc}
+T <- 1000; C <- c(250,500,1000, 2000, 4000, 8000, 16000)
+plot(C, T/C, main="Fold Change")
+```
+
+## Log Fold Change
+The solution to all this problems is to use *logarithms*.
+```{r plot.lfc}
+plot(C, log2(T/C), main="Log Fold Change")
+```
+
+## Alternative form
+Notice that the previous formula can be written as
+```{r plot.lfc2}
+plot(C, log2(T) - log2(C), main="Log Fold Change")
+```
+
+## Applying to microarray data
+Let us calculate *log fold change* for each one of the 3 replicas
+```{r real.lfc, fig.height=3.5, cache=TRUE}
+lfc.1 <- log2(m$T1.AVG_Signal)   - log2(m$C1.AVG_Signal)
+lfc.2 <- log2(m$T1.AVG_Signal.1) - log2(m$C1.AVG_Signal.1)
+lfc.3 <- log2(m$T1.AVG_Signal.2) - log2(m$C1.AVG_Signal.2)
+hist(lfc.1, nclass=100)
+```
+
+## Average LFC
+The vectors `lfc.1`, `lfc.2` and `lfc.3` contain three samples for each gene.
+
+To average them we can use
+```{r lfc0, eval=FALSE}
+lfc <- rep(NA, length(lfc.1))
+for(i in 1:length(lfc.1)) {
+  lfc[i] <- mean(lfc.1[i], lfc.2[i], lfc.3[i])
+}
+```
+but is more efficient to use the `mapply` function
+```{r lfc1, cache=TRUE}
+lfc <- mapply(mean, lfc.1, lfc.2, lfc.3) 
+```
+
+## Hypothesis test
+For each gene $i$, the *null hypothesis* is
+$$LFC_i = 0 + \varepsilon_i$$
+where each $\varepsilon_i$ represents the noise component following a normal distribution $N(0,\sigma^2)$.
+We assume that the noise components of each gene are independent.
+
+If the values for a gene are `x`, `y`, `z`, we test this hypothesis with this function
+```{r def.p.val}
+get.p.value <- function(x,y,z) {
+  return( t.test(c(x,y,z), alternative = "two.sided")$p.value )
+}
+```
+
+## *p*-values
+If the null hypothesis is true, the probability of observing the log fold change is then
+```{r calc.p.value, cache=TRUE}
+p.val <- mapply(get.p.value, lfc.1, lfc.2, lfc.3) 
+```
+(we used `mapply` again)
+```{r hist.p.val, fig.height=3.5, echo=FALSE}
+hist(p.val, nclass=20)
+```
+
+## Volcano Plot
+Now we can compare the statistical and biological approaches
+```{r volcano, cache=TRUE}
+plot(lfc, -log10(p.val), pch=16, cex=0.4)
+```
+Lower *p*-values suggest that the null hypothesis is false
+
+## Multiple test
+Let us reject the null hypothesis for gene $i$ if
+$p_i > 0.05$.
+
+If the null hypothesis is true (i.e. the genes are not differentially expressed) then 
+$p_i \leq p_{max}$ in 5% of the cases
+```{r hist.p.val.ab, fig.height=4, echo=FALSE}
+hist(p.val, nclass=20)
+abline(h=length(p.val)/20, col="red")
+```
+
+## Controlling False Discovery Rate
+To avoid this problem, *p*-values are adjusted (see Wikipedia)
+```{r qval, cache=TRUE}
+q.val <- p.adjust(p.val, method = "fdr")
+```
+```{r plot.q, echo=FALSE, cache=TRUE}
+plot(p.val, q.val, pch=16, cex=0.4); abline(0,1,col="red")
+```
+
+## Adjusted Volcano Plot
+```{r volcano.q, cache=TRUE, echo=FALSE, fig.height=4}
+plot(lfc, -log10(q.val), pch=16, cex=0.4)
+```
+
++ Biological significance: $LFC_i$
++ Statistical significance: $q_i$
+
+## Adjusted Volcano Plot with thresholds
+```{r volcano.q2, cache=TRUE, echo=FALSE, fig.height=4}
+plot(lfc, -log10(q.val), pch=16, cex=0.4)
+abline(h=-log10(0.05), col="red")
+abline(v=1, col="red")
+abline(v=-1, col="red")
+```
+
++ Biological significance: $LFC_i>1$ or $LFC_i< -1$
++ Statistical significance: $q_i<0.05$
+
