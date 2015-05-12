@@ -15,7 +15,7 @@ We will use a modified version of the file that **Walid Khalilia** provided.
 
 We read the data frame with this command
 ```{r read.csv, cache=TRUE}
-m <- read.csv("microarray.csv") 
+m <- read.csv("microarray.csv")
 ```
 The resulting data frame has `r nrow(m)` rows and `r ncol(m)` columns.
 
@@ -111,7 +111,7 @@ for(i in 1:length(lfc.1)) {
 ```
 but is more efficient to use the `mapply` function
 ```{r lfc1, cache=TRUE}
-lfc <- mapply(mean, lfc.1, lfc.2, lfc.3) 
+lfc <- mapply(mean, lfc.1, lfc.2, lfc.3)
 ```
 
 ## Hypothesis test
@@ -130,7 +130,7 @@ get.p.value <- function(x,y,z) {
 ## *p*-values
 If the null hypothesis is true, the probability of observing the log fold change is then
 ```{r calc.p.value, cache=TRUE}
-p.val <- mapply(get.p.value, lfc.1, lfc.2, lfc.3) 
+p.val <- mapply(get.p.value, lfc.1, lfc.2, lfc.3)
 ```
 (we used `mapply` again)
 ```{r hist.p.val, fig.height=3.5, echo=FALSE}
