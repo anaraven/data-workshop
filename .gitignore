@@ -1,9 +1,5 @@
 .Rproj.user
 earthquakes_files
-M3D
-RND1
-RND2
-RND3
 .RData
 Rplot.pdf
 analysis_cache
@@ -16,3 +12,4 @@ FullMoons1900-2100.html
 analysis.md
 computers.html
 earthquakes.html
+installing-packagesin-R.html

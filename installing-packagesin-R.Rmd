@@ -1,0 +1,30 @@
+---
+title: "Installing extra R packages"
+author: "Andres Aravena"
+date: "14/05/2015"
+output: html_document
+---
+
+R packages are sets of functions that extend the basic capabilities of R.
+
+They are developed by different people with different motivations. Sometimes two packages provide the same functionality, sometimes they have different functions with the same name.
+
+R comes initially with a set of packages, that you can see opening the **Packages** tab in the lower right quadrant of *Rstudio*. To load them in your session, and make the package functions available to your program, you use the command
+```
+library(PACKAGE_NAME)
+```
+using the corresponding `PACKAGE_NAME`. For example, the package *RColorBrewer* has function to create color palettes to produce nice graphs, but its functions are not automatically available in the R session. For example
+```{r fail,error=TRUE}
+display.brewer.all()
+```
+To make this function available we have to do
+```{r, fig.height=6}
+library(RColorBrewer)
+display.brewer.all()
+```
+In summary, the command `library()` loads an external package into the current R session.
+
+## Installing new packages
+What if the package is not available in the computer?
+
+R can only load packages that have been previously *installed* in the hard disk.
