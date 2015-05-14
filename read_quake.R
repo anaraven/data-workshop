@@ -42,6 +42,8 @@ map("world2Hires")
 points(long, lat, col=color, cex=2*norm_e+0.1, pch=19)
 points(long[big_ones], lat[big_ones], col="black", cex=2*norm_e[big_ones]+0.1, pch=1)
 
+points(long, lat, bg=color, col=ifelse(big_ones,"black",color), cex=2*norm_e+0.1, pch=21)
+
 
 cnt <- table((mdy.date(a$mon,a$day,a$yr)-mdy.date(1,1,1900)) %% 28)
 sort(pbinom(q = cnt, size = nrow(a),prob = 1/28))

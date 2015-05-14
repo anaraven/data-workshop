@@ -3,7 +3,7 @@
 fullmoon.htm:
 	wget 'http://home.hiwaay.net/~krcool/Astro/moon/fullmoon.htm'
 
-FullMoons1900-2100.txt: FullMoons1900-2100.html
+FullMoons1900-2100.txt: fullmoon.html
 	awk '/^[12]/ && NF==6' $^ > $@
 
 centennial_README.rtf:
@@ -11,3 +11,4 @@ centennial_README.rtf:
 
 centennial_Y2K.CAT:
 	wget http://earthquake.usgs.gov/data/centennial/centennial_Y2K.CAT
+
