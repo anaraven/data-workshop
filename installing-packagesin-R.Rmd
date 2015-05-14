@@ -2,7 +2,10 @@
 title: "Installing extra R packages"
 author: "Andres Aravena"
 date: "14/05/2015"
-output: html_document
+output:
+  html_document:
+    keep_md: yes
+    self_contained: no
 ---
 
 R packages are sets of functions that extend the basic capabilities of R.
@@ -10,21 +13,75 @@ R packages are sets of functions that extend the basic capabilities of R.
 They are developed by different people with different motivations. Sometimes two packages provide the same functionality, sometimes they have different functions with the same name.
 
 R comes initially with a set of packages, that you can see opening the **Packages** tab in the lower right quadrant of *Rstudio*. To load them in your session, and make the package functions available to your program, you use the command
-```
+```{r eval=FALSE}
 library(PACKAGE_NAME)
 ```
 using the corresponding `PACKAGE_NAME`. For example, the package *RColorBrewer* has function to create color palettes to produce nice graphs, but its functions are not automatically available in the R session. For example
-```{r fail,error=TRUE}
+```{r fail, error=TRUE}
 display.brewer.all()
 ```
+```{r echo=FALSE}
+# How can this parameter persist into the next chunk?
+par(mar=c(0,2.2,0,0))
+```
 To make this function available we have to do
-```{r, fig.height=6}
+```{r colormap, fig.height=7}
 library(RColorBrewer)
 display.brewer.all()
 ```
+
 In summary, the command `library()` loads an external package into the current R session.
 
 ## Installing new packages
 What if the package is not available in the computer?
 
-R can only load packages that have been previously *installed* in the hard disk.
+```{r eval=FALSE}
+library(maps)
+```
+```
+Error in library(maps) : there is no package called ‘maps’
+```
+
+R can only load packages that have been previously *installed* in the hard disk. When we install R a few of them get installed. But there are hundreds, maybe thousands, of other packages developed by many people around the world. Most of them are in the official repository named **CRAN**, which has mirrors in near one hundred servers in different countries. Because of that these R packages are easy to download from servers in the same country.
+
+To install new packages we use the command `install.packages()`. If these packages need also other packages, these will be also installed. For example in my Ubuntu machine I can do
+```{r eval=FALSE}
+install.packages("maps")
+```
+
+```
+Installing package into ‘/home/anaraven/R/x86_64-pc-linux-gnu-library/3.1’
+(as ‘lib’ is unspecified)
+trying URL 'http://cran.rstudio.com/src/contrib/maps_2.3-9.tar.gz'
+Content type 'application/x-gzip' length 1428724 bytes (1.4 Mb)
+opened URL
+==================================================
+downloaded 1.4 Mb
+
+* installing *source* package ‘maps’ ...
+** package ‘maps’ successfully unpacked and MD5 sums checked
+** libs
+** arch - 
+```
+[the package is compiled, I omit that output]
+```
+** R
+** data
+** inst
+** preparing package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (maps)
+
+The downloaded source packages are in
+  ‘/tmp/RtmpVcfLc6/downloaded_packages’
+```
+
+Now we can use the new package.
+```{r maps}
+library(maps)
+map("world", fill=TRUE, col=brewer.pal(9,"Set1"))
+```
+
