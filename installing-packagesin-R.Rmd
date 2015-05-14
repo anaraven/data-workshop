@@ -85,3 +85,207 @@ library(maps)
 map("world", fill=TRUE, col=brewer.pal(9,"Set1"))
 ```
 
+
+Full instalation output:
+```
+> install.packages(c("maps", "maptools", "mapdata"))
+Installing packages into ‘/home/anaraven/R/x86_64-pc-linux-gnu-library/3.1’
+(as ‘lib’ is unspecified)
+also installing the dependency ‘sp’
+
+trying URL 'http://cran.rstudio.com/src/contrib/sp_1.1-0.tar.gz'
+Content type 'application/x-gzip' length 1175034 bytes (1.1 Mb)
+opened URL
+==================================================
+downloaded 1.1 Mb
+
+trying URL 'http://cran.rstudio.com/src/contrib/maps_2.3-9.tar.gz'
+Content type 'application/x-gzip' length 1428724 bytes (1.4 Mb)
+opened URL
+==================================================
+downloaded 1.4 Mb
+
+trying URL 'http://cran.rstudio.com/src/contrib/maptools_0.8-36.tar.gz'
+Content type 'application/x-gzip' length 1506673 bytes (1.4 Mb)
+opened URL
+==================================================
+downloaded 1.4 Mb
+
+trying URL 'http://cran.rstudio.com/src/contrib/mapdata_2.2-3.tar.gz'
+Content type 'application/x-gzip' length 13382545 bytes (12.8 Mb)
+opened URL
+==================================================
+downloaded 12.8 Mb
+
+* installing *source* package ‘sp’ ...
+** package ‘sp’ successfully unpacked and MD5 sums checked
+** libs
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c Rcentroid.c -o Rcentroid.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c gcdist.c -o gcdist.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c pip.c -o pip.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c pip2.c -o pip2.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c sp_xports.c -o sp_xports.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c surfaceArea.c -o surfaceArea.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c zerodist.c -o zerodist.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o sp.so Rcentroid.o gcdist.o init.o pip.o pip2.o sp_xports.o surfaceArea.o zerodist.o -L/usr/lib/R/lib -lR
+installing to /home/anaraven/R/x86_64-pc-linux-gnu-library/3.1/sp/libs
+** R
+** data
+** demo
+** inst
+** preparing package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (sp)
+* installing *source* package ‘maps’ ...
+** package ‘maps’ successfully unpacked and MD5 sums checked
+** libs
+** arch - 
+gcc -std=gnu99 -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g   -Wl,-Bsymbolic-functions -Wl,-z,relro  Gmake.c   -o Gmake
+gcc -std=gnu99 -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g   -Wl,-Bsymbolic-functions -Wl,-z,relro  Lmake.c   -o Lmake
+Converting world to world2
+/usr/bin/awk -f convert.awk < world.line > world2.line
+make county.L state.L usa.L nz.L world.L world2.L italy.L france.L state.vbm.L state.carto.L
+make[1]: Entering directory '/tmp/RtmpD8G1Kb/R.INSTALL204c5e5411ef/maps/src'
+./Lmake 0 s b county.line county.linestats ../inst/mapdata/county.L
+./Lmake 0 s b state.line state.linestats ../inst/mapdata/state.L
+./Lmake 0 s b usa.line usa.linestats ../inst/mapdata/usa.L
+./Lmake 0 s b nz.line nz.linestats ../inst/mapdata/nz.L
+./Lmake 0 s b world.line world.linestats ../inst/mapdata/world.L
+./Lmake 0 s b world2.line world2.linestats ../inst/mapdata/world2.L
+./Lmake 0 s b italy.line italy.linestats ../inst/mapdata/italy.L
+./Lmake 0 s b france.line france.linestats ../inst/mapdata/france.L
+./Lmake 0 p b state.vbm.line state.vbm.linestats ../inst/mapdata/state.vbm.L
+./Lmake 0 p b state.carto.line state.carto.linestats ../inst/mapdata/state.carto.L
+make[1]: Leaving directory '/tmp/RtmpD8G1Kb/R.INSTALL204c5e5411ef/maps/src'
+make county.G state.G usa.G nz.G world.G world2.G italy.G france.G state.vbm.G state.carto.G
+make[1]: Entering directory '/tmp/RtmpD8G1Kb/R.INSTALL204c5e5411ef/maps/src'
+./Gmake b county.gon county.gonstats ../inst/mapdata/county.G ../inst/mapdata/county.L
+./Gmake b state.gon state.gonstats ../inst/mapdata/state.G ../inst/mapdata/state.L
+./Gmake b usa.gon usa.gonstats ../inst/mapdata/usa.G ../inst/mapdata/usa.L
+./Gmake b nz.gon nz.gonstats ../inst/mapdata/nz.G ../inst/mapdata/nz.L
+./Gmake b world.gon world.gonstats ../inst/mapdata/world.G ../inst/mapdata/world.L
+./Gmake b world2.gon world2.gonstats ../inst/mapdata/world2.G ../inst/mapdata/world2.L
+./Gmake b italy.gon italy.gonstats ../inst/mapdata/italy.G ../inst/mapdata/italy.L
+./Gmake b france.gon france.gonstats ../inst/mapdata/france.G ../inst/mapdata/france.L
+./Gmake b state.vbm.gon state.vbm.gonstats ../inst/mapdata/state.vbm.G ../inst/mapdata/state.vbm.L
+./Gmake b state.carto.gon state.carto.gonstats ../inst/mapdata/state.carto.G ../inst/mapdata/state.carto.L
+make[1]: Leaving directory '/tmp/RtmpD8G1Kb/R.INSTALL204c5e5411ef/maps/src'
+make county.N state.N usa.N nz.N world.N world2.N italy.N france.N state.vbm.N state.carto.N
+make[1]: Entering directory '/tmp/RtmpD8G1Kb/R.INSTALL204c5e5411ef/maps/src'
+make[1]: Leaving directory '/tmp/RtmpD8G1Kb/R.INSTALL204c5e5411ef/maps/src'
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c mapget.c -o mapget.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c smooth.c -o smooth.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c thin.c -o thin.o
+/usr/lib/R/bin/R CMD SHLIB -o maps.so mapget.o smooth.o thin.o
+make[1]: Entering directory '/tmp/RtmpD8G1Kb/R.INSTALL204c5e5411ef/maps/src'
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o maps.so mapget.o smooth.o thin.o -L/usr/lib/R/lib -lR
+make[1]: Leaving directory '/tmp/RtmpD8G1Kb/R.INSTALL204c5e5411ef/maps/src'
+installing to /home/anaraven/R/x86_64-pc-linux-gnu-library/3.1/maps/libs
+** R
+** data
+** inst
+** preparing package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (maps)
+* installing *source* package ‘maptools’ ...
+** package ‘maptools’ successfully unpacked and MD5 sums checked
+** libs
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c Rcentroid.c -o Rcentroid.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c Rgshhs.c -o Rgshhs.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c Rshapeget.c -o Rshapeget.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c Rshapeinfo.c -o Rshapeinfo.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c Rshapewrite.c -o Rshapewrite.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c Rshapewrite1.c -o Rshapewrite1.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c insiders.c -o insiders.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c pip.c -o pip.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c shpopen.c -o shpopen.o
+shpopen.c: In function ‘SHPOpen’:
+shpopen.c:507:5: warning: ignoring return value of ‘fread’, declared with attribute warn_unused_result [-Wunused-result]
+     fread( pabyBuf, 100, 1, psSHP->fpSHP );
+     ^
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c shptree.c -o shptree.o
+shptree.c: In function ‘SHPSearchDiskTree’:
+shptree.c:829:5: warning: ignoring return value of ‘fread’, declared with attribute warn_unused_result [-Wunused-result]
+     fread( abyBuf, 16, 1, fp );
+     ^
+shptree.c: In function ‘SHPSearchDiskTreeNode’:
+shptree.c:731:5: warning: ignoring return value of ‘fread’, declared with attribute warn_unused_result [-Wunused-result]
+     fread( &offset, 4, 1, fp );
+     ^
+shptree.c:734:5: warning: ignoring return value of ‘fread’, declared with attribute warn_unused_result [-Wunused-result]
+     fread( adfNodeBoundsMin, sizeof(double), 2, fp );
+     ^
+shptree.c:735:5: warning: ignoring return value of ‘fread’, declared with attribute warn_unused_result [-Wunused-result]
+     fread( adfNodeBoundsMax, sizeof(double), 2, fp );
+     ^
+shptree.c:744:5: warning: ignoring return value of ‘fread’, declared with attribute warn_unused_result [-Wunused-result]
+     fread( &numshapes, 4, 1, fp );
+     ^
+shptree.c:771:9: warning: ignoring return value of ‘fread’, declared with attribute warn_unused_result [-Wunused-result]
+         fread( *ppanResultBuffer + *pnResultCount, 
+         ^
+shptree.c:786:5: warning: ignoring return value of ‘fread’, declared with attribute warn_unused_result [-Wunused-result]
+     fread( &numsubnodes, 4, 1, fp );
+     ^
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o maptools.so Rcentroid.o Rgshhs.o Rshapeget.o Rshapeinfo.o Rshapewrite.o Rshapewrite1.o insiders.o pip.o shpopen.o shptree.o -L/usr/lib/R/lib -lR
+installing to /home/anaraven/R/x86_64-pc-linux-gnu-library/3.1/maptools/libs
+** R
+** data
+** inst
+** preparing package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (maptools)
+* installing *source* package ‘mapdata’ ...
+** package ‘mapdata’ successfully unpacked and MD5 sums checked
+** libs
+** arch - 
+gcc -std=gnu99 -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g   -Wl,-Bsymbolic-functions -Wl,-z,relro  Gmake.c   -o Gmake
+gcc -std=gnu99 -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g   -Wl,-Bsymbolic-functions -Wl,-z,relro  Lmake.c   -o Lmake
+Converting world to world2
+/usr/bin/awk -f convert.awk < worldHires.line > world2Hires.line
+make china.L japan.L nzHires.L rivers.L worldHires.L world2Hires.L
+make[1]: Entering directory '/tmp/RtmpzrzPb8/R.INSTALL20ee323a280a/mapdata/src'
+./Lmake 0 s b china.line china.linestats ../inst/mapdata/china.L
+./Lmake 0 s b japan.line japan.linestats ../inst/mapdata/japan.L
+./Lmake 0 s b nzHires.line nzHires.linestats ../inst/mapdata/nzHires.L
+./Lmake 0 s b rivers.line rivers.linestats ../inst/mapdata/rivers.L
+./Lmake 0 s b worldHires.line worldHires.linestats ../inst/mapdata/worldHires.L
+./Lmake 0 s b world2Hires.line world2Hires.linestats ../inst/mapdata/world2Hires.L
+make[1]: Leaving directory '/tmp/RtmpzrzPb8/R.INSTALL20ee323a280a/mapdata/src'
+make china.G japan.G nzHires.G rivers.G worldHires.G world2Hires.G
+make[1]: Entering directory '/tmp/RtmpzrzPb8/R.INSTALL20ee323a280a/mapdata/src'
+./Gmake b china.gon china.gonstats ../inst/mapdata/china.G ../inst/mapdata/china.L
+./Gmake b japan.gon japan.gonstats ../inst/mapdata/japan.G ../inst/mapdata/japan.L
+./Gmake b nzHires.gon nzHires.gonstats ../inst/mapdata/nzHires.G ../inst/mapdata/nzHires.L
+./Gmake b rivers.gon rivers.gonstats ../inst/mapdata/rivers.G ../inst/mapdata/rivers.L
+./Gmake b worldHires.gon worldHires.gonstats ../inst/mapdata/worldHires.G ../inst/mapdata/worldHires.L
+./Gmake b world2Hires.gon world2Hires.gonstats ../inst/mapdata/world2Hires.G ../inst/mapdata/world2Hires.L
+make[1]: Leaving directory '/tmp/RtmpzrzPb8/R.INSTALL20ee323a280a/mapdata/src'
+make china.N japan.N nzHires.N rivers.N worldHires.N world2Hires.N
+make[1]: Entering directory '/tmp/RtmpzrzPb8/R.INSTALL20ee323a280a/mapdata/src'
+make[1]: Leaving directory '/tmp/RtmpzrzPb8/R.INSTALL20ee323a280a/mapdata/src'
+** R
+** data
+** inst
+** preparing package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (mapdata)
+
+The downloaded source packages are in
+  ‘/tmp/RtmpaYf28K/downloaded_packages’
+```
