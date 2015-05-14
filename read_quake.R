@@ -11,6 +11,8 @@ colnames(a) <- n
 install.packages(c("maps", "maptools", "mapdata"))
 library(maps)
 library(mapdata)
+library(date)
+
 map("worldHires",mar=c(0,0,0,0))
 points(a[,c("glon","glat")], cex=0.5, col="red")
 

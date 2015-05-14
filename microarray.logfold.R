@@ -4,6 +4,9 @@ lfc.1 <- log2(m$T1.AVG_Signal)   - log2(m$C1.AVG_Signal)
 lfc.2 <- log2(m$T1.AVG_Signal.1) - log2(m$C1.AVG_Signal.1)
 lfc.3 <- log2(m$T1.AVG_Signal.2) - log2(m$C1.AVG_Signal.2)
 
+m.1 <-  log2(m$C2.AVG_Signal.1) - log2(m$C2.AVG_Signal.2)
+a.1 <- (log2(m$C2.AVG_Signal.1) + log2(m$C2.AVG_Signal.2))/2
+
 avg.1 <- (log2(m$T1.AVG_Signal)   + log2(m$C1.AVG_Signal))/2
 avg.2 <- (log2(m$T1.AVG_Signal.1) + log2(m$C1.AVG_Signal.1))/2
 avg.3 <- (log2(m$T1.AVG_Signal.2) + log2(m$C1.AVG_Signal.2))/2
@@ -14,7 +17,7 @@ avg.3 <- (log2(m$T1.AVG_Signal.2) + log2(m$C1.AVG_Signal.2))/2
   # lfc[i] <- mean(lfc.1[i], lfc.2[i], lfc.3[i])
 # }
 
-plot(m$KontrolC4I.AVG_Signal,m$KontrolC4I.AVG_Signal.1,pch=".", log="xy")
+plot(m$C2.AVG_Signal,m$C2.AVG_Signal.1,pch=".", log="xy")
 abline(0,1,col="red")
 
 lfc <- mapply(mean, lfc.1, lfc.2, lfc.3)
